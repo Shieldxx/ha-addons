@@ -1,0 +1,1004 @@
+/* === App Header === */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(var(--header-height) + var(--safe-top));
+  padding-top: var(--safe-top);
+  padding-inline: max(16px, calc((100% - 640px) / 2 + 16px));
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+  border-bottom: 1px solid var(--glass-hairline);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--accent);
+  filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+.app-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* === App Main === */
+.app-main {
+  flex: 1;
+  padding: 16px;
+  padding-bottom: calc(var(--nav-height) + var(--nav-offset) + 24px);
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* === Pages === */
+.page { display: none; }
+.page.active {
+  display: block;
+  animation: page-fade 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.page h2 {
+  margin-bottom: 18px;
+  color: var(--text);
+}
+
+@keyframes page-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === Card === */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Cards carry their spacing below them, so one following a loose button
+   (Settings: Save, then Export / Import) would otherwise sit flush against it. */
+.btn + .card {
+  margin-top: 16px;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.card h3 + .hint { margin-top: -6px; }
+
+.card h4 {
+  margin-bottom: 8px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+}
+
+/* === Buttons === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: var(--surface-elevated);
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-secondary:hover {
+  background: var(--accent-tint-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--danger-fg);
+}
+.btn-danger:hover {
+  background: var(--danger-hover);
+  transform: translateY(-1px);
+}
+.btn-danger:active {
+  transform: translateY(0);
+}
+/* base.css rings every focusable element in the accent green; on the one red
+   button in the app that reads as a mistake. */
+.btn-danger:focus-visible {
+  box-shadow: 0 0 0 3px var(--danger-glow);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Icon button (header utility) */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.icon-btn:hover {
+  background: var(--accent-tint-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lang-btn {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  width: auto;
+  padding: 0 12px;
+}
+
+/* Theme toggle icon visibility */
+[data-theme="dark"] .icon-dark { display: none; }
+[data-theme="dark"] .icon-light { display: block; }
+[data-theme="light"] .icon-light { display: none; }
+[data-theme="light"] .icon-dark { display: block; }
+
+/* === Icons === */
+.icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* === Forms === */
+.form-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.form-row:last-child { margin-bottom: 0; }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.form-group label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  padding: 10px 12px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+input[type="number"] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* iOS Safari zooms the whole page in when you focus a field under 16px.
+   Meeting that threshold on touch devices is what actually stops it. */
+@media (pointer: coarse) {
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: var(--border-strong);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--ring);
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+                    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 32px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 8px 0;
+  color: var(--text-secondary);
+}
+
+.checkbox-label input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+
+/* === Mono === */
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* === Bottom Nav === */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--nav-height) + var(--nav-offset));
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+  border-top: 1px solid var(--glass-hairline);
+  box-shadow: 0 -8px 24px rgb(0 0 0 / 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px var(--safe-bottom);
+  z-index: 100;
+}
+
+.nav-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: var(--radius-control);
+  flex: 1;
+  max-width: 96px;
+}
+
+/* === Floating glass nav (touch devices) ===
+   Approximates the iOS 26 tab bar: a detached pill lifted off the edges, with
+   the page blurred behind it and a lit top rim standing in for the pane edge.
+   CSS has no refraction, so this is the look without the lensing. */
+@media (pointer: coarse) {
+  :root {
+    /* Sit just clear of the home indicator glyph rather than above the whole
+       34pt inset, which left the bar stranded mid-screen. 8px floor keeps a
+       gap on phones that report no inset at all. */
+    --nav-offset: max(8px, calc(var(--safe-bottom) - 18px));
+  }
+
+  .bottom-nav {
+    left: 12px;
+    right: 12px;
+    bottom: var(--nav-offset);
+    height: var(--nav-height);
+    padding: 0 6px;
+    border: none;
+    border-radius: var(--radius-pill);
+    box-shadow:
+      var(--glass-shadow),
+      inset 0 1px 0 var(--glass-rim),
+      inset 0 0 0 1px var(--glass-hairline);
+  }
+}
+
+.nav-btn .icon { width: 22px; height: 22px; }
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active { color: var(--accent); }
+.nav-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* === Tare Weight Calculator === */
+/* Collapsible card: the tare calculator and the weight entries list. */
+details.disclosure > summary.disclosure-toggle {
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+details.disclosure > summary.disclosure-toggle:hover { color: var(--text); }
+details.disclosure > summary.disclosure-toggle::-webkit-details-marker { display: none; }
+details.disclosure > summary.disclosure-toggle::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--transition);
+  flex-shrink: 0;
+}
+details.disclosure[open] > summary.disclosure-toggle::before { transform: rotate(45deg); }
+details.disclosure[open] > summary + * { margin-top: 16px; }
+
+/* Entry count beside a disclosure's label, so a collapsed section still says
+   how much it is hiding. */
+.disclosure-count {
+  color: var(--subtle);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Pre-filled weight input */
+input.prefilled {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Calculated-from weight note in results */
+/* Placeholder standing in for the results block before anything is calculated. */
+.calc-empty p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.calc-weight-info {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 8px 0 0;
+  letter-spacing: 0.02em;
+}
+
+/* Target vs. current weight comparison */
+.weight-compare {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+.compare-delta.over  { color: var(--danger); font-weight: 600; }
+.compare-delta.under { color: var(--warning); font-weight: 600; }
+.compare-delta.match { color: var(--accent); font-weight: 600; }
+
+.tare-form .form-row { align-items: flex-end; }
+
+.tare-result {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  background: var(--accent-tint-soft);
+  border: 1px solid var(--accent-tint);
+  border-radius: var(--radius-inner);
+  min-width: 120px;
+}
+
+/* === Weight === */
+.weight-form .form-row { align-items: flex-end; }
+
+.weight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.weight-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-inner);
+  font-size: 0.875rem;
+}
+.weight-entry:hover {
+  border-color: var(--accent-tint);
+  background: var(--accent-tint-soft);
+}
+
+.weight-entry .date { color: var(--muted); font-size: 0.8rem; }
+.weight-entry .value {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.weight-entry .btn-delete {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+}
+.weight-entry .btn-delete:hover { color: var(--danger); background: var(--danger-tint); }
+.weight-entry .btn-delete .icon { width: 16px; height: 16px; }
+
+/* The trash icon is only a 24x24 box — too small to hit reliably with a thumb.
+   This grows the touch target to 44x44 and leaves the painted button alone, so
+   the hover chip and the focus ring stay the size they look. The 10px it gains
+   all round lands inside the row's own 10px vertical / 14px horizontal padding,
+   so the row keeps its 46px height and two rows' targets never meet. */
+.weight-entry .btn-delete::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+}
+
+.no-data {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 32px 16px;
+  font-style: italic;
+}
+
+/* === Calculator === */
+.calc-summary {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.summary-chip {
+  flex: 1;
+  min-width: 140px;
+  background: var(--accent-tint-soft);
+  border: 1px solid var(--accent-tint);
+  border-radius: var(--radius-inner);
+  padding: 14px;
+  text-align: center;
+}
+
+.chip-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.chip-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+.chip-value.mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.coverage-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.coverage-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--surface-sunken);
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.coverage-chip .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+.calc-table-wrap {
+  overflow-x: auto;
+  margin: 0 -4px;
+}
+
+.calc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.calc-table th {
+  text-align: left;
+  padding: 10px 8px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.calc-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.calc-table tbody tr {
+  transition: background var(--transition-fast);
+}
+.calc-table tbody tr:hover {
+  background: var(--accent-tint-soft);
+}
+
+.calc-table td:not(:first-child) {
+  font-family: var(--font-mono);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.calc-table th:not(:first-child) { text-align: right; }
+
+.calc-table tr:last-child td { border-bottom: none; }
+
+.positive { color: var(--accent); font-weight: 500; }
+.zero { color: var(--muted); }
+
+/* === Output === */
+.output-content {
+  white-space: pre-wrap;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  margin-bottom: 14px;
+  padding: 12px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-inner);
+  color: var(--text-secondary);
+}
+
+
+/* === Settings === */
+.hint {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+  font-style: italic;
+}
+
+.ratios-grid { margin-top: 14px; }
+
+.ratios-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.ratios-row .form-group { min-width: unset; }
+
+.ratio-sum {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  margin-top: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.ratio-sum.valid { color: var(--accent); }
+.ratio-sum.invalid { color: var(--danger); }
+
+/* === Export === */
+.warn {
+  font-size: 0.8rem;
+  color: var(--danger);
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background: var(--danger-tint);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-inner);
+}
+
+.file-label {
+  cursor: pointer;
+}
+
+/* Buttons stacked down a card rather than sat in a form row. */
+.action-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.action-stack .warn {
+  margin-bottom: 0;
+}
+
+/* === Toast === */
+.toast {
+  position: fixed;
+  bottom: calc(var(--nav-height) + var(--nav-offset) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: var(--accent-fg);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  z-index: 200;
+  animation: toast-in 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+             toast-out 0.32s cubic-bezier(0.7, 0, 0.84, 0) 2s forwards;
+  pointer-events: none;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(14px) scale(0.92); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+@keyframes toast-out {
+  to { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.96); }
+}
+
+/* === Modal === */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 16px;
+  animation: overlay-in 180ms ease-out;
+}
+
+@keyframes overlay-in { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 380px;
+  overflow: hidden;
+  animation: modal-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-error .modal-header-bar,
+.modal-confirm .modal-header-bar {
+  height: 4px;
+  background: var(--danger);
+}
+
+.modal-body {
+  padding: 28px 24px 24px;
+  text-align: center;
+}
+
+.modal-message {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 22px;
+  color: var(--text);
+}
+
+.modal-btn { width: 100%; }
+
+/* Both the Belpatt import modal and confirmModal() lay their buttons out with
+   this — it is not Belpatt's private rule. */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+.modal-actions .btn { flex: 1; }
+
+/* The confirm's message can be a short before/after block, so its line breaks
+   have to survive — and left-aligned, since a centred two-line block reads
+   badly against the centred single-line error message. */
+.modal-confirm .modal-message {
+  white-space: pre-line;
+  text-align: left;
+}
+
+/* Input error highlight */
+.input-error {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 0 3px var(--danger-tint) !important;
+}
+
+/* Save button pulse */
+.btn-pulse {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50%      { box-shadow: 0 0 0 10px transparent; }
+}
+
+/* === Chart === */
+#weight-chart {
+  width: 100%;
+  max-height: 240px;
+}
+
+.chart-card { padding-top: 16px; }
+
+/* === Belpatt Import === */
+.belpatt-import-card {
+  display: flex;
+  justify-content: center;
+  padding: 14px 16px;
+}
+
+.modal-belpatt {
+  max-width: 440px;
+}
+
+.modal-belpatt .modal-body {
+  text-align: left;
+  padding: 22px 22px 20px;
+}
+
+.modal-belpatt .modal-header-bar {
+  height: 4px;
+  background: var(--accent);
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+  color: var(--text);
+}
+
+.belpatt-textarea {
+  width: 100%;
+  min-height: 140px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  padding: 12px;
+  resize: vertical;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+}
+.belpatt-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--ring);
+}
+
+.belpatt-summary {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 12px;
+  font-family: var(--font-mono);
+}
+
+.belpatt-preview-list {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.belpatt-dupe { opacity: 0.4; }
+
+.belpatt-dupe-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-left: auto;
+  align-self: center;
+}
+
+/* === Tri-Slider === */
+.tri-slider {
+  position: relative;
+  height: 28px;
+  margin: 4px 0 14px;
+  touch-action: none;
+}
+
+.tri-slider-track {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 8px;
+  right: 8px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.tri-slider-range {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.tri-slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+  box-sizing: border-box;
+  z-index: 2;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.tri-slider-thumb:hover {
+  box-shadow: 0 0 0 6px var(--accent-glow);
+}
+
+.tri-slider-thumb:active {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.tslider-mid {
+  background: var(--surface);
+  border: 2.5px solid var(--accent);
+  z-index: 1;
+}

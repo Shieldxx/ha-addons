@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>BARF Companion</title>
+  <link rel="icon" type="image/png" href="static/img/favicon.png">
+  <link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
+  <link rel="manifest" href="static/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BARF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Syne:wght@500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/tokens.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/utilities.css') }}">
+</head>
+<body>
+  <!-- SVG Icon Symbols -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-weight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a4 4 0 0 0-4 4c0 .7.2 1.4.5 2H4l2 13h12l2-13h-4.5c.3-.6.5-1.3.5-2a4 4 0 0 0-4-4z"/>
+      <circle cx="12" cy="7" r="2"/>
+    </symbol>
+    <symbol id="icon-calculator" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2"/>
+      <line x1="8" y1="6" x2="16" y2="6"/>
+      <line x1="8" y1="10" x2="10" y2="10"/>
+      <line x1="14" y1="10" x2="16" y2="10"/>
+      <line x1="8" y1="14" x2="10" y2="14"/>
+      <line x1="14" y1="14" x2="16" y2="14"/>
+      <line x1="8" y1="18" x2="10" y2="18"/>
+      <line x1="14" y1="18" x2="16" y2="18"/>
+    </symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </symbol>
+    <symbol id="icon-export" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </symbol>
+    <symbol id="icon-delete" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="3 6 5 6 21 6"/>
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+    </symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="17 8 12 3 7 8"/>
+      <line x1="12" y1="3" x2="12" y2="15"/>
+    </symbol>
+    <symbol id="icon-dog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 5.172h4"/>
+      <path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14 5.172C14 3.782 15.577 2.679 17.5 3c2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.96-1.45-2.344-2.5"/>
+      <path d="M8 14v.5M16 14v.5"/>
+      <path d="M11.25 16.25h1.5L12 17l-.75-.75z"/>
+      <path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a13.152 13.152 0 0 0-.42-3.309"/>
+    </symbol>
+  </svg>
+
+  <!-- App Shell -->
+  <div id="app">
+    <header class="app-header">
+      <div class="header-left">
+        <svg class="header-icon"><use href="#icon-dog"/></svg>
+        <h1 class="app-title">BARF Companion</h1>
+      </div>
+      <div class="header-right">
+        <button id="btn-theme" class="icon-btn" title="Theme">
+          <svg class="icon icon-light"><use href="#icon-sun"/></svg>
+          <svg class="icon icon-dark"><use href="#icon-moon"/></svg>
+        </button>
+        <button id="btn-lang" class="icon-btn lang-btn">EN</button>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- M1: Weight -->
+      <section id="page-weight" class="page active">
+        <h2 data-i18n="weight.title">Weight History</h2>
+        <details class="card disclosure tare-card">
+          <summary class="disclosure-toggle" data-i18n="calc.tare_title">Tare calculator</summary>
+          <div class="tare-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="tare-combined-label">You + dog (kg)</label>
+                <input type="number" class="tare-combined" step="0.1" min="0" placeholder="0.0">
+              </div>
+              <div class="form-group">
+                <label data-i18n="calc.tare_you">You (kg)</label>
+                <input type="number" class="tare-you" step="0.1" min="0" placeholder="0.0">
+              </div>
+              <div class="tare-result">
+                <span class="chip-label tare-result-label">Dog weight</span>
+                <span class="chip-value mono tare-result-value">— kg</span>
+              </div>
+            </div>
+          </div>
+        </details>
+        <div class="card">
+          <div class="weight-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label data-i18n="weight.date">Date</label>
+                <input type="text" id="weight-date" data-i18n="common.date_placeholder" inputmode="numeric">
+              </div>
+              <div class="form-group">
+                <label data-i18n="weight.weight_kg">Weight (kg)</label>
+                <input type="number" id="weight-value" step="0.1" min="0" placeholder="0.0">
+              </div>
+              <button id="btn-add-weight" class="btn btn-primary" data-i18n="weight.add">Add</button>
+            </div>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <div class="tri-slider" id="weight-tri-slider">
+            <div class="tri-slider-track">
+              <div class="tri-slider-range" id="tri-slider-range"></div>
+            </div>
+            <div class="tri-slider-thumb" id="tslider-left"></div>
+            <div class="tri-slider-thumb tslider-mid" id="tslider-mid"></div>
+            <div class="tri-slider-thumb" id="tslider-right"></div>
+          </div>
+          <canvas id="weight-chart"></canvas>
+        </div>
+        <details class="card disclosure">
+          <summary class="disclosure-toggle">
+            <span data-i18n="weight.records">Entries</span>
+            <span id="weight-count" class="disclosure-count"></span>
+          </summary>
+          <div id="weight-list" class="weight-list"></div>
+        </details>
+        <div class="card belpatt-import-card">
+          <button id="btn-belpatt-import" class="btn btn-secondary" data-i18n="belpatt_import.btn">Import from belpatt.fr</button>
+        </div>
+      </section>
+
+      <!-- M2: Calculator -->
+      <section id="page-calculator" class="page">
+        <h2 data-i18n="calc.title">BARF Calculator</h2>
+        <div class="card">
+          <div class="calc-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label data-i18n="calc.days">Number of days</label>
+                <input type="number" id="calc-days" value="14" min="1" max="90">
+              </div>
+              <div class="form-group">
+                <label data-i18n="calc.prep_date">Preparation date</label>
+                <input type="text" id="calc-date" data-i18n="common.date_placeholder" inputmode="numeric">
+              </div>
+              <div class="form-group">
+                <label data-i18n="settings.target_weight">Target weight (kg)</label>
+                <input type="number" id="calc-target-weight" step="0.1" min="0" placeholder="0.0">
+              </div>
+            </div>
+            <button id="btn-calculate" class="btn btn-primary" data-i18n="calc.calculate">Calculate</button>
+          </div>
+        </div>
+        <!-- Without a result the page would otherwise end at the Calculate
+             button, which reads as a page that failed to load rather than one
+             waiting to be used. -->
+        <div id="calc-empty" class="card calc-empty">
+          <p data-i18n="calc.empty_hint">Set the period and press Calculate. The order text and the breakdown appear here.</p>
+        </div>
+
+        <!-- The order text and the breakdown are two readings of one result, so
+             one wrapper shows and hides both. The text sits first: it is what
+             gets sent, and it already carries the daily dose and the recent
+             weights — the numbers worth a second look before copying. -->
+        <div id="calc-results" style="display:none">
+          <div class="card">
+            <h3 data-i18n="output.title">Output</h3>
+            <div id="output-content" class="output-content"></div>
+            <button id="btn-copy" class="btn btn-primary">
+              <svg class="icon"><use href="#icon-copy"/></svg>
+              <span data-i18n="output.copy">Copy</span>
+            </button>
+          </div>
+          <div class="card">
+            <div class="calc-summary">
+              <div class="summary-chip">
+                <span class="chip-label" data-i18n="calc.total_daily">Daily total</span>
+                <span class="chip-value mono" id="calc-daily">0 g</span>
+              </div>
+              <div class="summary-chip">
+                <span class="chip-label" data-i18n="calc.total_period">Period total</span>
+                <span class="chip-value mono" id="calc-total">0 g</span>
+              </div>
+            </div>
+            <p id="calc-weight-source" class="calc-weight-info"></p>
+            <div id="calc-weight-compare" class="weight-compare" style="display:none"></div>
+            <div id="calc-coverage" class="coverage-bar"></div>
+            <div class="calc-table-wrap">
+              <table class="calc-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="calc.category">Category</th>
+                    <th data-i18n="calc.need">Need</th>
+                    <th data-i18n="calc.stock">In stock</th>
+                    <th data-i18n="calc.to_buy">To buy</th>
+                  </tr>
+                </thead>
+                <tbody id="calc-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- M4: Settings -->
+      <section id="page-settings" class="page">
+        <h2 data-i18n="settings.title">Settings</h2>
+        <div class="card">
+          <h3 data-i18n="settings.dog_profile">Dog Profile</h3>
+          <p class="hint" data-i18n="settings.multi_dog_hint">Multi-dog support coming in next version</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label data-i18n="settings.dog_name">Dog name</label>
+              <input type="text" id="dog-name" placeholder="Dex">
+            </div>
+            <div class="form-group">
+              <label data-i18n="settings.birth_date">Date of birth</label>
+              <input type="text" id="dog-birth-date" data-i18n="common.date_placeholder" inputmode="numeric">
+            </div>
+            <div class="form-group">
+              <label data-i18n="settings.age_group">Age group</label>
+              <select id="dog-age">
+                <option value="adult" data-i18n="settings.age_adult">Adult</option>
+                <option value="junior" data-i18n="settings.age_junior">Junior (6–12 m)</option>
+                <option value="puppy" data-i18n="settings.age_puppy">Puppy (0–6 m)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label data-i18n="settings.body_pct">% of body weight</label>
+              <input type="number" id="dog-pct" step="0.5" min="0.5" max="15" value="3">
+            </div>
+            <div class="form-group">
+              <label data-i18n="settings.target_weight">Target weight (kg)</label>
+              <input type="number" id="dog-target-weight" step="0.1" min="0" placeholder="0.0">
+            </div>
+            <div class="form-group">
+              <label data-i18n="settings.preset">Load preset</label>
+              <select id="dog-preset">
+                <option value="">—</option>
+                <option value="adult">Adult (3%)</option>
+                <option value="junior">Junior (5%)</option>
+                <option value="puppy">Puppy (7%)</option>
+              </select>
+            </div>
+          </div>
+          <div class="ratios-grid">
+            <h4 data-i18n="settings.ratios">Category ratios (%)</h4>
+            <div class="form-row ratios-row">
+              <div class="form-group">
+                <label data-i18n="calc.meat">Meat</label>
+                <input type="number" class="ratio-input" data-cat="0" value="72" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label data-i18n="calc.bones">Bones</label>
+                <input type="number" class="ratio-input" data-cat="1" value="10" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label data-i18n="calc.liver">Liver</label>
+                <input type="number" class="ratio-input" data-cat="2" value="5" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label data-i18n="calc.organs">Organs</label>
+                <input type="number" class="ratio-input" data-cat="3" value="5" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label data-i18n="calc.veggies">Vegetables</label>
+                <input type="number" class="ratio-input" data-cat="4" value="7" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label data-i18n="calc.nuts">Nuts/Seeds</label>
+                <input type="number" class="ratio-input" data-cat="5" value="0" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label data-i18n="calc.fruit">Fruit</label>
+                <input type="number" class="ratio-input" data-cat="6" value="1" min="0" max="100">
+              </div>
+            </div>
+            <div id="ratio-sum" class="ratio-sum mono">100%</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 data-i18n="settings.output_mode">Output mode</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <select id="output-mode">
+                <option value="A" data-i18n="settings.output_mode_a">A – Claude chat template</option>
+                <option value="B" data-i18n="settings.output_mode_b">B – Plain shopping list</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 data-i18n="settings.stock_title">Freezer stock (g)</h3>
+          <div class="form-row ratios-row">
+            <div class="form-group">
+              <label data-i18n="calc.meat">Meat</label>
+              <input type="number" class="stock-input" data-cat="meat" value="0" min="0">
+            </div>
+            <div class="form-group">
+              <label data-i18n="calc.bones">Bones</label>
+              <input type="number" class="stock-input" data-cat="bones" value="0" min="0">
+            </div>
+            <div class="form-group">
+              <label data-i18n="calc.liver">Liver</label>
+              <input type="number" class="stock-input" data-cat="liver" value="0" min="0">
+            </div>
+            <div class="form-group">
+              <label data-i18n="calc.organs">Organs</label>
+              <input type="number" class="stock-input" data-cat="organs" value="0" min="0">
+            </div>
+            <div class="form-group">
+              <label data-i18n="calc.veggies">Vegetables</label>
+              <input type="number" class="stock-input" data-cat="veggies" value="0" min="0">
+            </div>
+            <div class="form-group">
+              <label data-i18n="calc.nuts">Nuts/Seeds</label>
+              <input type="number" class="stock-input" data-cat="nuts" value="0" min="0">
+            </div>
+            <div class="form-group">
+              <label data-i18n="calc.fruit">Fruit</label>
+              <input type="number" class="stock-input" data-cat="fruit" value="0" min="0">
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-save-settings" class="btn btn-primary" data-i18n="settings.save">Save</button>
+
+        <!-- M5: Export/Import — last section, below Save, which belongs to the
+             settings above it rather than to these actions. -->
+        <div class="card">
+          <h3 data-i18n="export.title">Export / Import</h3>
+          <div class="action-stack">
+            <button id="btn-export" class="btn btn-primary">
+              <svg class="icon"><use href="#icon-export"/></svg>
+              <span data-i18n="export.export_btn">Export data</span>
+            </button>
+            <p class="warn" data-i18n="export.import_warn">Import replaces your current data. A backup is saved automatically.</p>
+            <label class="btn btn-secondary file-label">
+              <svg class="icon"><use href="#icon-upload"/></svg>
+              <span data-i18n="export.import_btn">Import data</span>
+              <input type="file" id="file-import" accept=".json" style="display:none">
+            </label>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-page="weight">
+        <svg class="icon"><use href="#icon-weight"/></svg>
+        <span data-i18n="nav.weight">Weight</span>
+      </button>
+      <button class="nav-btn" data-page="calculator">
+        <svg class="icon"><use href="#icon-calculator"/></svg>
+        <span data-i18n="nav.calculator">Calculator</span>
+      </button>
+      <button class="nav-btn" data-page="settings">
+        <svg class="icon"><use href="#icon-settings"/></svg>
+        <span data-i18n="nav.settings">Settings</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="{{ asset('js/chart.min.js') }}"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('js/weight.js') }}"></script>
+  <script src="{{ asset('js/belpatt-import.js') }}"></script>
+  <script src="{{ asset('js/calculator.js') }}"></script>
+  <script src="{{ asset('js/output.js') }}"></script>
+  <script src="{{ asset('js/settings.js') }}"></script>
+  <script src="{{ asset('js/export.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "BARF Companion",
+  "short_name": "BARF",
+  "description": "Dog weight and food calculator",
+  "start_url": "../",
+  "display": "standalone",
+  "background_color": "#0c1014",
+  "theme_color": "#4a9d6e",
+  "icons": [
+    {
+      "src": "img/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

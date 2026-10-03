@@ -1,0 +1,70 @@
+/* === Utilities === */
+
+/* Surface elevation helpers */
+.elevated {
+  background: var(--surface-elevated);
+  box-shadow: var(--shadow-md);
+}
+
+.recessed {
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+}
+
+.tint-accent {
+  background: var(--accent-tint-soft);
+  border: 1px solid var(--accent-tint);
+}
+
+/* Glass — used sparingly (header/nav already inline) */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-stroke);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .btn:hover { transform: none; }
+  .page.active { animation: none; }
+}
+
+/* === Responsive === */
+@media (min-width: 480px) {
+  .ratios-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .app-main {
+    max-width: 720px;
+    padding: 24px;
+    padding-bottom: calc(var(--nav-height) + var(--nav-offset) + 32px);
+  }
+
+  .bottom-nav {
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .nav-btn {
+    padding: 8px 22px;
+    max-width: 120px;
+  }
+
+  .app-header {
+    padding-inline: max(24px, calc((100% - 720px) / 2 + 24px));
+  }
+
+  .page h2 { font-size: 1.7rem; }
+}

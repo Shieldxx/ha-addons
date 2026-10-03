@@ -1,0 +1,26 @@
+# The image only needs the app itself. Everything below is either local tooling
+# or, in the case of data/, the owner's real records - which belong in the
+# add-on's /config volume, never baked into an image.
+
+.git
+.gitignore
+.dockerignore
+.claude
+.idea
+.vscode
+.venv
+venv
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.playwright-mcp
+
+data/
+tests/
+docs/
+*.md
+pytest.ini
+requirements-dev.txt
+requirements-postgres.txt

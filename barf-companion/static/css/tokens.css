@@ -1,0 +1,138 @@
+/* === Design Tokens ===
+   Forest green primary (raw/biological food theme).
+   Structure inspired by SimLauncher + shieldxx-web design systems. */
+
+:root,
+[data-theme="dark"] {
+  /* Canvas */
+  --bg: #0c1014;
+  --surface: #151b22;
+  --surface-elevated: #1c242d;
+  --surface-sunken: #0e131a;
+  --border: #232d39;
+  --border-strong: #2e3a48;
+
+  /* Accent — Forest Green */
+  --accent: #4a9d6e;
+  --accent-hover: #5fb286;
+  --accent-fg: #ffffff;
+  --accent-glow: #4a9d6e40;
+  --accent-strong: #4a9d6e57;
+  --accent-tint-soft: #4a9d6e1a;
+  --accent-tint: #4a9d6e26;
+
+  /* Semantic */
+  --danger: #e05a5a;
+  --danger-hover: #e97070;
+  --danger-fg: #ffffff;
+  --danger-glow: #e05a5a40;
+  --danger-tint: #e05a5a1a;
+  --warning: #d99b3a;
+  --info: #5b9bd5;
+  --success: var(--accent);
+
+  /* Text */
+  --text: #e4ecf3;
+  --text-secondary: #b8c4d1;
+  --muted: #6b7d92;
+  --subtle: #4b5867;
+
+  /* Glass */
+  --glass-bg: #ffffff08;
+  --glass-stroke: #ffffff14;
+  --glass-bg-elevated: #ffffff0d;
+
+  /* Frosted surfaces (header + bottom nav). Colours only — the blur and
+     saturation live once in the shared block below. */
+  --glass-fill: rgba(28, 36, 45, 0.14);
+  --glass-rim: rgba(255, 255, 255, 0.32);
+  --glass-hairline: rgba(255, 255, 255, 0.13);
+  --glass-shadow: 0 10px 30px rgb(0 0 0 / 0.45), 0 2px 8px rgb(0 0 0 / 0.3);
+}
+
+[data-theme="light"] {
+  --bg: #f7f3ee;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-sunken: #efeae3;
+  --border: #e0d8cc;
+  --border-strong: #cabfae;
+
+  --accent: #3a7d56;
+  --accent-hover: #2f6a48;
+  --accent-fg: #ffffff;
+  --accent-glow: #3a7d5640;
+  --accent-strong: #3a7d5657;
+  --accent-tint-soft: #3a7d561a;
+  --accent-tint: #3a7d5626;
+
+  --danger: #c43030;
+  --danger-hover: #a82727;
+  --danger-fg: #ffffff;
+  --danger-glow: #c4303040;
+  --danger-tint: #c430301a;
+  --warning: #b67822;
+  --info: #4a80b0;
+  --success: var(--accent);
+
+  --text: #1a1410;
+  --text-secondary: #4a4038;
+  --muted: #8a7a6a;
+  --subtle: #b8a999;
+
+  --glass-bg: #00000005;
+  --glass-stroke: #00000014;
+  --glass-bg-elevated: #ffffff;
+
+  --glass-fill: rgba(255, 255, 255, 0.22);
+  --glass-rim: rgba(255, 255, 255, 1);
+  --glass-hairline: rgba(0, 0, 0, 0.07);
+  --glass-shadow: 0 10px 30px rgb(0 0 0 / 0.13), 0 2px 8px rgb(0 0 0 / 0.06);
+}
+
+/* Shared shape & motion */
+:root {
+  --radius-pill: 9999px;
+  --radius-card: 20px;
+  --radius-inner: 16px;
+  --radius-control: 12px;
+  --radius-sm: 8px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.12);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.18);
+  --shadow-glow: 0 0 24px var(--accent-glow);
+
+  --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  --ring: 0 0 0 3px var(--accent-glow);
+
+  /* === Glass recipe ===
+     The single place to tune how frosted the header and bottom nav look.
+     Saturation above 100% is what separates "glass" from "grey haze": it
+     keeps the colour of whatever scrolls underneath. Keep the blur modest —
+     past roughly 25px everything behind smears into one flat wash and the
+     pane stops reading as transparent at all. */
+  --glass-blur: 14px;
+  --glass-saturate: 180%;
+  --glass-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+
+  --nav-height: 64px;
+  --header-height: 56px;
+
+  /* Notch / home-indicator insets. Non-zero only when the viewport is set to
+     `viewport-fit=cover`; everywhere else these fall back to 0px. */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Distance from the screen's bottom edge to the bottom of the nav, and so
+     also the clearance the page and toast must leave for it. An edge-anchored
+     bar absorbs the whole inset; the floating pill overrides this to tuck
+     partway into it and sit closer to the edge. */
+  --nav-offset: var(--safe-bottom);
+
+  --font-display: 'Syne', 'Syne Variable', system-ui, sans-serif;
+  --font-body: 'Open Sans', 'Open Sans Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+}
