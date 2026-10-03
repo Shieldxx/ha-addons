@@ -18,3 +18,9 @@ Data lives in `/config/barf-companion/` and survives restarts and updates.
 3. Open **BARF Companion**, install it, start it, and turn on **Show in sidebar**
 
 Or use the button above.
+
+## License
+
+[PolyForm Noncommercial 1.0.0](LICENSE) — free for personal and other noncommercial
+use. For commercial use, contact the author. Third-party components keep their own
+licenses; see `barf-companion/THIRD_PARTY_NOTICES.md`.

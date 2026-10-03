@@ -22,5 +22,7 @@ tests/
 docs/
 *.md
 pytest.ini
+# Shown by the Home Assistant add-on store from the repository, not used by the app.
+icon.png
 requirements-dev.txt
 requirements-postgres.txt
