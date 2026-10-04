@@ -83,7 +83,7 @@ const Export = {
       // (theme before strings, dog before strings), then the views themselves.
       App.clearCalcResult();
       await App.loadSettings();
-      App.applyTheme(App.theme);
+      App.applyTheme(App.themePref);
       await App.loadDog();
       await App.loadStrings(App.lang);
       await Weight.render();

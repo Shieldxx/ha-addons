@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-theme-pref="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -13,6 +13,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Syne:wght@500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+  <!-- Paint in the remembered theme before the settings arrive from the
+       server, so a light or system-light screen does not flash dark first.
+       app.js keeps this copy in step; the server's setting still wins. -->
+  <script>
+    try {
+      var pref = localStorage.getItem('barf_themePref');
+      if (pref) {
+        var dark = pref === 'dark' || (pref === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme-pref', pref);
+      }
+    } catch (e) {}
+  </script>
   <link rel="stylesheet" href="{{ asset('css/tokens.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base.css') }}">
   <link rel="stylesheet" href="{{ asset('css/components.css') }}">
@@ -58,6 +71,9 @@
     <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </symbol>
+    <symbol id="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+    </symbol>
     <symbol id="icon-delete" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="3 6 5 6 21 6"/>
       <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -85,8 +101,9 @@
       </div>
       <div class="header-right">
         <button id="btn-theme" class="icon-btn" title="Theme">
-          <svg class="icon icon-light"><use href="#icon-sun"/></svg>
-          <svg class="icon icon-dark"><use href="#icon-moon"/></svg>
+          <svg class="icon theme-icon theme-icon-dark"><use href="#icon-moon"/></svg>
+          <svg class="icon theme-icon theme-icon-light"><use href="#icon-sun"/></svg>
+          <svg class="icon theme-icon theme-icon-system"><use href="#icon-monitor"/></svg>
         </button>
         <button id="btn-lang" class="icon-btn lang-btn">EN</button>
       </div>

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.4 — 2026-10-04
+
+### Added
+- A "system" theme that follows the phone, and switches with it — when the iPhone goes
+  dark in the evening, so does the app. The theme button now cycles dark → light →
+  system and shows the current one (moon, sun, screen).
+
+### Fixed
+- The app no longer flashes dark for a moment on every load when the light theme is on.
+
 ## 0.2.3 — 2026-10-04
 
 ### Fixed

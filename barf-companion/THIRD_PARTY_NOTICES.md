@@ -25,7 +25,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Feather Icons
 
 - **Used as:** inline SVG icons in `templates/index.html` — download, upload, copy,
-  trash, sun, moon and settings
+  trash, sun, moon, monitor and settings
 - **Source:** https://github.com/feathericons/feather
 - **License:** MIT
 

@@ -48,7 +48,7 @@ class JsonStorage(BaseStorage):
             'dogs': [],
             'settings': {
                 'lang': 'cs',
-                'theme': 'dark',
+                'theme': 'system',
                 'output_mode': 'A',
                 'presets': {
                     'adult': {'label': 'Dospělý', 'pct': 3, 'ratios': [72, 10, 5, 5, 7, 0, 1]},

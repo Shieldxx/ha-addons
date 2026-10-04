@@ -3,7 +3,8 @@
 const App = {
   lang: 'en',
   strings: {},
-  theme: 'dark',
+  theme: 'dark',        // resolved: always 'dark' or 'light'
+  themePref: 'dark',    // the setting: 'dark', 'light' or 'system'
   dog: null,
   settings: null,
   calcResult: null,
@@ -32,7 +33,7 @@ const App = {
         // i18n is gone too; the modal falls back to key text, which is still
         // better than the dead shell this replaces.
       }
-      this.applyTheme(this.theme);
+      this.applyTheme(this.themePref);
       this.errorModal(this.t('errors.load_failed'), this.t('errors.reload'), 'reload');
       return;
     } finally {
@@ -41,7 +42,7 @@ const App = {
 
     this.restoreCalcResultIfSameDog();
     await this.loadStrings(this.lang);
-    this.applyTheme(this.theme);
+    this.applyTheme(this.themePref);
     this.initNav();
     this.initThemeToggle();
     this.initLangToggle();
@@ -116,7 +117,7 @@ const App = {
   async loadSettings() {
     this.settings = await this.api('api/settings');
     this.lang = this.settings.lang || 'en';
-    this.theme = this.settings.theme || 'dark';
+    this.themePref = this.settings.theme || 'dark';
   },
 
   async saveSettings(s) {
@@ -201,21 +202,45 @@ const App = {
     const btnLang = document.getElementById('btn-lang');
     btnLang.textContent = this.lang === 'cs' ? 'EN' : 'CS';
     btnLang.title = this.t('common.switch_lang');
-    document.getElementById('btn-theme').title = this.t('common.toggle_theme');
+    this._updateThemeTitle();
   },
 
   // --- Theme ---
-  applyTheme(theme) {
+  // The setting is dark, light or system; App.theme is always the resolved
+  // dark or light, which is what the stylesheet and the chart colours need.
+  _systemDark: window.matchMedia('(prefers-color-scheme: dark)'),
+
+  applyTheme(pref) {
+    this.themePref = pref;
+    const theme = pref === 'system' ? (this._systemDark.matches ? 'dark' : 'light') : pref;
     this.theme = theme;
     document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme-pref', pref);
+    // For the inline script in index.html, which paints before settings load.
+    try { localStorage.setItem('barf_themePref', pref); } catch {}
+    this._updateThemeTitle();
+  },
+
+  _updateThemeTitle() {
+    document.getElementById('btn-theme').title =
+      `${this.t('settings.theme')}: ${this.t('settings.theme_' + this.themePref)}`;
   },
 
   initThemeToggle() {
+    const order = ['dark', 'light', 'system'];
     document.getElementById('btn-theme').addEventListener('click', () => {
-      const next = this.theme === 'dark' ? 'light' : 'dark';
+      const next = order[(order.indexOf(this.themePref) + 1) % order.length];
       this.applyTheme(next);
       this.settings.theme = next;
       this.saveSettings(this.settings);
+      Weight.renderChart(this.dog ? (this.dog.weights || []) : []);
+    });
+
+    // In system mode the phone can switch under the app - iOS goes dark at
+    // sunset - so follow it live, chart colours included.
+    this._systemDark.addEventListener('change', () => {
+      if (this.themePref !== 'system') return;
+      this.applyTheme('system');
       Weight.renderChart(this.dog ? (this.dog.weights || []) : []);
     });
   },

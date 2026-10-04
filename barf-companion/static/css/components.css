@@ -200,11 +200,13 @@
   padding: 0 12px;
 }
 
-/* Theme toggle icon visibility */
-[data-theme="dark"] .icon-dark { display: none; }
-[data-theme="dark"] .icon-light { display: block; }
-[data-theme="light"] .icon-light { display: none; }
-[data-theme="light"] .icon-dark { display: block; }
+/* Theme button: shows the current setting - moon, sun, or a screen for
+   "follow the system". With three states the current one has to be visible,
+   or system mode could not be told apart from a fixed theme. */
+.icon-btn .theme-icon { display: none; }
+[data-theme-pref="dark"] .theme-icon-dark,
+[data-theme-pref="light"] .theme-icon-light,
+[data-theme-pref="system"] .theme-icon-system { display: block; }
 
 /* === Icons === */
 .icon {
