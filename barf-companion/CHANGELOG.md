@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.2 — 2026-10-04
+
+### Fixed
+- The add-on starts. 0.2.1 stopped straight away with "s6-overlay-suexec: fatal: can
+  only run as pid 1", because Docker's own init ran in front of the one the Home
+  Assistant base image brings.
+
 ## 0.2.1 — 2026-10-03
 
 The first release as a Home Assistant add-on.
