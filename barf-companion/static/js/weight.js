@@ -56,14 +56,17 @@ const Weight = {
   _positionThumbs() {
     const container = document.getElementById('weight-tri-slider');
     if (!container) return;
-    const W = container.offsetWidth;
+    // Relative to the slider, never a measured width: the chart is also redrawn
+    // while the Weight page is hidden (after an import, say), where the slider
+    // measures 0px and every thumb piled up at the left edge. Relative positions
+    // also follow the slider when it is resized - a rotated phone, or Home
+    // Assistant's sidebar opening. The 8px inset matches .tri-slider-track.
     const inset = 8;
-    const usable = W - 2 * inset;
-    const px = pct => inset + (pct / 100) * usable;
+    const at = pct => `calc(${inset}px + (100% - ${2 * inset}px) * ${pct / 100})`;
 
-    document.getElementById('tslider-left').style.left = px(this._tsLeft) + 'px';
-    document.getElementById('tslider-right').style.left = px(this._tsRight) + 'px';
-    document.getElementById('tslider-mid').style.left = px((this._tsLeft + this._tsRight) / 2) + 'px';
+    document.getElementById('tslider-left').style.left = at(this._tsLeft);
+    document.getElementById('tslider-right').style.left = at(this._tsRight);
+    document.getElementById('tslider-mid').style.left = at((this._tsLeft + this._tsRight) / 2);
 
     const rangeEl = document.getElementById('tri-slider-range');
     rangeEl.style.left = this._tsLeft + '%';

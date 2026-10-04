@@ -185,6 +185,11 @@
   border-color: var(--accent);
   color: var(--accent);
 }
+/* 38px is under Apple's 44pt minimum touch target. Touch only, so the desktop
+   header stays compact; the 56px header has room for it. */
+@media (pointer: coarse) {
+  .icon-btn { width: 44px; height: 44px; }
+}
 
 .lang-btn {
   font-family: var(--font-body);
@@ -438,7 +443,7 @@ details.disclosure[open] > summary + * { margin-top: 16px; }
 /* Entry count beside a disclosure's label, so a collapsed section still says
    how much it is hiding. */
 .disclosure-count {
-  color: var(--subtle);
+  color: var(--muted);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
 }
@@ -674,8 +679,11 @@ input.prefilled {
 
 .calc-table tr:last-child td { border-bottom: none; }
 
-.positive { color: var(--accent); font-weight: 500; }
-.zero { color: var(--muted); }
+/* Scoped to the cell on purpose: `.calc-table td:not(:first-child)` above is
+   (0,2,1) and sets a colour, so bare .positive/.zero at (0,1,0) never won -
+   the To buy column stayed white instead of green, and zeros never dimmed. */
+.calc-table td.positive { color: var(--accent); font-weight: 500; }
+.calc-table td.zero { color: var(--muted); }
 
 /* === Output === */
 .output-content {

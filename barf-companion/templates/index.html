@@ -101,12 +101,12 @@
           <div class="tare-form">
             <div class="form-row">
               <div class="form-group">
-                <label class="tare-combined-label">You + dog (kg)</label>
-                <input type="number" class="tare-combined" step="0.1" min="0" placeholder="0.0">
+                <label for="tare-combined" class="tare-combined-label">You + dog (kg)</label>
+                <input type="number" id="tare-combined" class="tare-combined" step="0.1" min="0" placeholder="0.0">
               </div>
               <div class="form-group">
-                <label data-i18n="calc.tare_you">You (kg)</label>
-                <input type="number" class="tare-you" step="0.1" min="0" placeholder="0.0">
+                <label for="tare-you" data-i18n="calc.tare_you">You (kg)</label>
+                <input type="number" id="tare-you" class="tare-you" step="0.1" min="0" placeholder="0.0">
               </div>
               <div class="tare-result">
                 <span class="chip-label tare-result-label">Dog weight</span>
@@ -119,11 +119,11 @@
           <div class="weight-form">
             <div class="form-row">
               <div class="form-group">
-                <label data-i18n="weight.date">Date</label>
+                <label for="weight-date" data-i18n="weight.date">Date</label>
                 <input type="text" id="weight-date" data-i18n="common.date_placeholder" inputmode="numeric">
               </div>
               <div class="form-group">
-                <label data-i18n="weight.weight_kg">Weight (kg)</label>
+                <label for="weight-value" data-i18n="weight.weight_kg">Weight (kg)</label>
                 <input type="number" id="weight-value" step="0.1" min="0" placeholder="0.0">
               </div>
               <button id="btn-add-weight" class="btn btn-primary" data-i18n="weight.add">Add</button>
@@ -160,15 +160,15 @@
           <div class="calc-form">
             <div class="form-row">
               <div class="form-group">
-                <label data-i18n="calc.days">Number of days</label>
+                <label for="calc-days" data-i18n="calc.days">Number of days</label>
                 <input type="number" id="calc-days" value="14" min="1" max="90">
               </div>
               <div class="form-group">
-                <label data-i18n="calc.prep_date">Preparation date</label>
+                <label for="calc-date" data-i18n="calc.prep_date">Preparation date</label>
                 <input type="text" id="calc-date" data-i18n="common.date_placeholder" inputmode="numeric">
               </div>
               <div class="form-group">
-                <label data-i18n="settings.target_weight">Target weight (kg)</label>
+                <label for="calc-target-weight" data-i18n="settings.target_weight">Target weight (kg)</label>
                 <input type="number" id="calc-target-weight" step="0.1" min="0" placeholder="0.0">
               </div>
             </div>
@@ -234,15 +234,15 @@
           <p class="hint" data-i18n="settings.multi_dog_hint">Multi-dog support coming in next version</p>
           <div class="form-row">
             <div class="form-group">
-              <label data-i18n="settings.dog_name">Dog name</label>
+              <label for="dog-name" data-i18n="settings.dog_name">Dog name</label>
               <input type="text" id="dog-name" placeholder="Dex">
             </div>
             <div class="form-group">
-              <label data-i18n="settings.birth_date">Date of birth</label>
+              <label for="dog-birth-date" data-i18n="settings.birth_date">Date of birth</label>
               <input type="text" id="dog-birth-date" data-i18n="common.date_placeholder" inputmode="numeric">
             </div>
             <div class="form-group">
-              <label data-i18n="settings.age_group">Age group</label>
+              <label for="dog-age" data-i18n="settings.age_group">Age group</label>
               <select id="dog-age">
                 <option value="adult" data-i18n="settings.age_adult">Adult</option>
                 <option value="junior" data-i18n="settings.age_junior">Junior (6–12 m)</option>
@@ -252,20 +252,20 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label data-i18n="settings.body_pct">% of body weight</label>
+              <label for="dog-pct" data-i18n="settings.body_pct">% of body weight</label>
               <input type="number" id="dog-pct" step="0.5" min="0.5" max="15" value="3">
             </div>
             <div class="form-group">
-              <label data-i18n="settings.target_weight">Target weight (kg)</label>
+              <label for="dog-target-weight" data-i18n="settings.target_weight">Target weight (kg)</label>
               <input type="number" id="dog-target-weight" step="0.1" min="0" placeholder="0.0">
             </div>
             <div class="form-group">
-              <label data-i18n="settings.preset">Load preset</label>
+              <label for="dog-preset" data-i18n="settings.preset">Load preset</label>
               <select id="dog-preset">
                 <option value="">—</option>
-                <option value="adult">Adult (3%)</option>
-                <option value="junior">Junior (5%)</option>
-                <option value="puppy">Puppy (7%)</option>
+                <option value="adult" data-i18n="settings.preset_adult">Adult (3%)</option>
+                <option value="junior" data-i18n="settings.preset_junior">Junior (5%)</option>
+                <option value="puppy" data-i18n="settings.preset_puppy">Puppy (7%)</option>
               </select>
             </div>
           </div>
@@ -273,32 +273,32 @@
             <h4 data-i18n="settings.ratios">Category ratios (%)</h4>
             <div class="form-row ratios-row">
               <div class="form-group">
-                <label data-i18n="calc.meat">Meat</label>
-                <input type="number" class="ratio-input" data-cat="0" value="72" min="0" max="100">
+                <label for="ratio-0" data-i18n="calc.meat">Meat</label>
+                <input type="number" id="ratio-0" class="ratio-input" data-cat="0" value="72" min="0" max="100">
               </div>
               <div class="form-group">
-                <label data-i18n="calc.bones">Bones</label>
-                <input type="number" class="ratio-input" data-cat="1" value="10" min="0" max="100">
+                <label for="ratio-1" data-i18n="calc.bones">Bones</label>
+                <input type="number" id="ratio-1" class="ratio-input" data-cat="1" value="10" min="0" max="100">
               </div>
               <div class="form-group">
-                <label data-i18n="calc.liver">Liver</label>
-                <input type="number" class="ratio-input" data-cat="2" value="5" min="0" max="100">
+                <label for="ratio-2" data-i18n="calc.liver">Liver</label>
+                <input type="number" id="ratio-2" class="ratio-input" data-cat="2" value="5" min="0" max="100">
               </div>
               <div class="form-group">
-                <label data-i18n="calc.organs">Organs</label>
-                <input type="number" class="ratio-input" data-cat="3" value="5" min="0" max="100">
+                <label for="ratio-3" data-i18n="calc.organs">Organs</label>
+                <input type="number" id="ratio-3" class="ratio-input" data-cat="3" value="5" min="0" max="100">
               </div>
               <div class="form-group">
-                <label data-i18n="calc.veggies">Vegetables</label>
-                <input type="number" class="ratio-input" data-cat="4" value="7" min="0" max="100">
+                <label for="ratio-4" data-i18n="calc.veggies">Vegetables</label>
+                <input type="number" id="ratio-4" class="ratio-input" data-cat="4" value="7" min="0" max="100">
               </div>
               <div class="form-group">
-                <label data-i18n="calc.nuts">Nuts/Seeds</label>
-                <input type="number" class="ratio-input" data-cat="5" value="0" min="0" max="100">
+                <label for="ratio-5" data-i18n="calc.nuts">Nuts/Seeds</label>
+                <input type="number" id="ratio-5" class="ratio-input" data-cat="5" value="0" min="0" max="100">
               </div>
               <div class="form-group">
-                <label data-i18n="calc.fruit">Fruit</label>
-                <input type="number" class="ratio-input" data-cat="6" value="1" min="0" max="100">
+                <label for="ratio-6" data-i18n="calc.fruit">Fruit</label>
+                <input type="number" id="ratio-6" class="ratio-input" data-cat="6" value="1" min="0" max="100">
               </div>
             </div>
             <div id="ratio-sum" class="ratio-sum mono">100%</div>
@@ -321,32 +321,32 @@
           <h3 data-i18n="settings.stock_title">Freezer stock (g)</h3>
           <div class="form-row ratios-row">
             <div class="form-group">
-              <label data-i18n="calc.meat">Meat</label>
-              <input type="number" class="stock-input" data-cat="meat" value="0" min="0">
+              <label for="stock-meat" data-i18n="calc.meat">Meat</label>
+              <input type="number" id="stock-meat" class="stock-input" data-cat="meat" value="0" min="0">
             </div>
             <div class="form-group">
-              <label data-i18n="calc.bones">Bones</label>
-              <input type="number" class="stock-input" data-cat="bones" value="0" min="0">
+              <label for="stock-bones" data-i18n="calc.bones">Bones</label>
+              <input type="number" id="stock-bones" class="stock-input" data-cat="bones" value="0" min="0">
             </div>
             <div class="form-group">
-              <label data-i18n="calc.liver">Liver</label>
-              <input type="number" class="stock-input" data-cat="liver" value="0" min="0">
+              <label for="stock-liver" data-i18n="calc.liver">Liver</label>
+              <input type="number" id="stock-liver" class="stock-input" data-cat="liver" value="0" min="0">
             </div>
             <div class="form-group">
-              <label data-i18n="calc.organs">Organs</label>
-              <input type="number" class="stock-input" data-cat="organs" value="0" min="0">
+              <label for="stock-organs" data-i18n="calc.organs">Organs</label>
+              <input type="number" id="stock-organs" class="stock-input" data-cat="organs" value="0" min="0">
             </div>
             <div class="form-group">
-              <label data-i18n="calc.veggies">Vegetables</label>
-              <input type="number" class="stock-input" data-cat="veggies" value="0" min="0">
+              <label for="stock-veggies" data-i18n="calc.veggies">Vegetables</label>
+              <input type="number" id="stock-veggies" class="stock-input" data-cat="veggies" value="0" min="0">
             </div>
             <div class="form-group">
-              <label data-i18n="calc.nuts">Nuts/Seeds</label>
-              <input type="number" class="stock-input" data-cat="nuts" value="0" min="0">
+              <label for="stock-nuts" data-i18n="calc.nuts">Nuts/Seeds</label>
+              <input type="number" id="stock-nuts" class="stock-input" data-cat="nuts" value="0" min="0">
             </div>
             <div class="form-group">
-              <label data-i18n="calc.fruit">Fruit</label>
-              <input type="number" class="stock-input" data-cat="fruit" value="0" min="0">
+              <label for="stock-fruit" data-i18n="calc.fruit">Fruit</label>
+              <input type="number" id="stock-fruit" class="stock-input" data-cat="fruit" value="0" min="0">
             </div>
           </div>
         </div>

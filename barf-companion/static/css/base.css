@@ -104,7 +104,7 @@ textarea {
   color: inherit;
 }
 
-::placeholder { color: var(--subtle); opacity: 1; }
+::placeholder { color: var(--muted); opacity: 1; }
 
 /* Selection */
 ::selection {

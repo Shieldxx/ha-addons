@@ -81,6 +81,10 @@
     "target_weight": "Cílová váha (kg)",
     "ratios": "Poměry kategorií (%)",
     "preset": "Načíst preset",
+    "preset_adult": "Dospělý (3 %)",
+    "preset_junior": "Dorostek (5 %)",
+    "preset_puppy": "Štěně (7 %)",
+    "ratio_sum_invalid": "Poměry musí dát dohromady 100 %, teď je to {sum} %",
     "save": "Uložit",
     "saved": "Uloženo!",
     "language": "Jazyk",
@@ -117,6 +121,7 @@
   },
   "errors": {
     "no_dog": "Nejdříve vyplň jméno psa v Nastavení",
+    "name_required": "Vyplň jméno psa",
     "go_settings": "Přejít do Nastavení",
     "no_weight": "Nejdříve zadej váhu psa",
     "go_weight": "Přejít na Váhu",
@@ -134,6 +139,8 @@
     "kg": "kg",
     "days": "dní",
     "cancel": "Zrušit",
+    "switch_lang": "Switch to English",
+    "toggle_theme": "Přepnout světlý / tmavý vzhled",
     "confirm": "Potvrdit",
     "delete": "Smazat",
     "ok": "OK",
@@ -143,14 +150,14 @@
   "belpatt_import": {
     "btn": "Importovat z belpatt.fr",
     "title": "Import z belpatt.fr",
-    "placeholder": "Vložte sem tabulku vážení z profilu vašeho psa na belpatt.fr...",
+    "placeholder": "Vlož sem tabulku vážení z profilu svého psa na belpatt.fr...",
     "parse_btn": "Analyzovat",
     "records_found": "{count} záznamů nalezeno",
     "duplicates_note": "{dupes} duplicitních bude přeskočeno",
     "import_btn": "Importovat",
     "no_birth_date": "Nejdříve nastav datum narození psa v Nastavení",
     "success": "Importováno {count} záznamů",
-    "no_records": "V vloženém textu nebyly nalezeny žádné záznamy",
+    "no_records": "Ve vloženém textu nebyly nalezeny žádné záznamy",
     "duplicate": "duplikát"
   }
 }

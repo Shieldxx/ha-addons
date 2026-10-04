@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.2.3 — 2026-10-04
+
+### Fixed
+- Saving can no longer leave the data file empty or half written if the power
+  goes out at the wrong moment.
+- The chart's range slider no longer piles its handles up at the left edge — after
+  an import, when the app opens on another tab, or when the screen is rotated.
+- Dates can be typed on the iPhone number pad: `18092026` works, and so do
+  `18.9.2026`, `18,9,2026`, `18/9/2026` and `18-9-2026`.
+- Changing the age group in Settings no longer silently rewrites % of body weight
+  and every ratio. Loading a preset is what the preset menu is for.
+- Settings refuses ratios that do not add up to 100 % and shows the total, and says
+  so when the dog's name is missing, instead of doing nothing.
+- The "K nákupu" column is green, and its zero rows are dimmed, as intended.
+- Small grey text is easier to read, in both themes.
+- Tapping a field's label puts the cursor in the field.
+- The language button shows the language it switches to, and the header buttons are
+  easier to hit on a phone.
+- In dialogs, Cancel is on the left, as on iPhone.
+- Preset names are translated; two Czech texts are corrected.
+
 ## 0.2.2 — 2026-10-04
 
 ### Fixed

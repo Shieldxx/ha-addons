@@ -58,6 +58,22 @@ def i18n(lang):
     return send_from_directory('i18n', f'{lang}.json')
 
 
+def _body(expected=dict):
+    """The request's JSON body if it has the expected type, else None.
+
+    Without this a body of null, a list or a string raised TypeError inside the
+    handler, which Flask turns into a 500 HTML page - and the frontend can only
+    report that as "invalid response". silent=True does the same for a body
+    that is not JSON at all.
+    """
+    data = request.get_json(silent=True)
+    return data if isinstance(data, expected) else None
+
+
+def _bad_body():
+    return jsonify({'error': 'invalid body'}), 400
+
+
 # --- Dogs API ---
 @app.route('/api/dogs', methods=['GET'])
 def list_dogs():
@@ -66,7 +82,9 @@ def list_dogs():
 
 @app.route('/api/dogs', methods=['POST'])
 def create_dog():
-    dog = request.get_json()
+    dog = _body()
+    if dog is None:
+        return _bad_body()
     return jsonify(storage.save_dog(dog)), 201
 
 
@@ -80,7 +98,9 @@ def get_dog(dog_id):
 
 @app.route('/api/dogs/<dog_id>', methods=['PUT'])
 def update_dog(dog_id):
-    dog = request.get_json()
+    dog = _body()
+    if dog is None:
+        return _bad_body()
     dog['id'] = dog_id
     return jsonify(storage.save_dog(dog))
 
@@ -99,7 +119,9 @@ def list_weights(dog_id):
 
 @app.route('/api/dogs/<dog_id>/weights', methods=['POST'])
 def add_weight(dog_id):
-    entry = request.get_json()
+    entry = _body()
+    if entry is None:
+        return _bad_body()
     result = storage.add_weight(dog_id, entry)
     if result is None:
         return jsonify({'error': 'dog not found'}), 404
@@ -108,7 +130,9 @@ def add_weight(dog_id):
 
 @app.route('/api/dogs/<dog_id>/weights/bulk', methods=['POST'])
 def add_weights_bulk(dog_id):
-    entries = request.get_json()
+    entries = _body(list)
+    if entries is None or not all(isinstance(e, dict) for e in entries):
+        return _bad_body()
     result = storage.add_weights_bulk(dog_id, entries)
     if result is None:
         return jsonify({'error': 'dog not found'}), 404
@@ -129,7 +153,9 @@ def get_stock(dog_id):
 
 @app.route('/api/dogs/<dog_id>/stock', methods=['PUT'])
 def update_stock(dog_id):
-    stock = request.get_json()
+    stock = _body()
+    if stock is None:
+        return _bad_body()
     result = storage.save_stock(dog_id, stock)
     if result is None:
         return jsonify({'error': 'dog not found'}), 404
@@ -144,7 +170,9 @@ def get_settings():
 
 @app.route('/api/settings', methods=['PUT'])
 def update_settings():
-    settings = request.get_json()
+    settings = _body()
+    if settings is None:
+        return _bad_body()
     return jsonify(storage.save_settings(settings))
 
 

@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+import tempfile
 import uuid
 import copy
 from datetime import datetime
@@ -22,8 +23,25 @@ class JsonStorage(BaseStorage):
         return self._default_data()
 
     def _save(self):
-        with open(self.file, 'w', encoding='utf-8') as f:
-            json.dump(self._data, f, ensure_ascii=False, indent=2)
+        # Write a sibling file and swap it in. Opening data.json with 'w'
+        # truncated it first, so a crash or power cut mid-write left it empty
+        # or half written - and it is the only copy of every weight recorded.
+        # os.replace is atomic on POSIX and Windows alike, so data.json is
+        # always either the old complete file or the new one. The sibling has
+        # to be in the same directory: os.replace cannot cross filesystems.
+        fd, tmp = tempfile.mkstemp(dir=self.data_dir, prefix='.data-', suffix='.tmp')
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                json.dump(self._data, f, ensure_ascii=False, indent=2)
+                f.flush()
+                os.fsync(f.fileno())
+            if os.path.exists(self.file):
+                shutil.copymode(self.file, tmp)  # mkstemp makes it owner-only
+            os.replace(tmp, self.file)
+        except BaseException:
+            if os.path.exists(tmp):
+                os.remove(tmp)
+            raise
 
     def _default_data(self):
         return {

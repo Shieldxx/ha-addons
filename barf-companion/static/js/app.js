@@ -45,6 +45,7 @@ const App = {
     this.initNav();
     this.initThemeToggle();
     this.initLangToggle();
+    this.initDateInputs();
 
     Weight.init();
     Calculator.init();
@@ -191,7 +192,16 @@ const App = {
         el.textContent = text;
       }
     });
-    document.getElementById('btn-lang').textContent = this.lang.toUpperCase();
+    // Screen readers and the browser pick pronunciation and hyphenation from
+    // this; the template ships "en", and Czech is the usual language.
+    document.documentElement.lang = this.lang;
+
+    // The button switches language, so it names the one it switches to: on a
+    // Czech screen it read CS and produced English.
+    const btnLang = document.getElementById('btn-lang');
+    btnLang.textContent = this.lang === 'cs' ? 'EN' : 'CS';
+    btnLang.title = this.t('common.switch_lang');
+    document.getElementById('btn-theme').title = this.t('common.toggle_theme');
   },
 
   // --- Theme ---
@@ -339,9 +349,10 @@ const App = {
     return this._modal({
       variant: 'confirm',
       msg,
+      // Cancel first, so it sits on the left as in an iOS alert.
       buttons: [
-        { text: confirmText, cls: 'btn-danger', value: true },
         { text: this.t('common.cancel'), cls: 'btn-secondary', value: false },
+        { text: confirmText, cls: 'btn-danger', value: true },
       ],
       dismissible: true,
       dismissValue: false,
@@ -508,46 +519,51 @@ const App = {
     return `${String(m).padStart(2, '0')}/${String(d).padStart(2, '0')}/${y}`;
   },
 
-  // Converts user-typed locale string → ISO string; returns null if invalid
+  // Converts a typed date → ISO string in the current language's field order;
+  // returns null if invalid.
   parseDateInput(str) {
-    if (!str || !str.trim()) return null;
-    const s = str.trim();
+    return this._parseDate(str, this.lang === 'cs' ? 'dmy' : 'mdy');
+  },
+
+  // Used when reformatting on a language switch, where the field still holds
+  // the other language's format: slashes mean month first, anything else day.
+  _parseDateAutoFormat(str) {
+    return this._parseDate(str, (str || '').includes('/') ? 'mdy' : 'dmy');
+  },
+
+  // The one date parser. The date fields bring up the iPhone number pad,
+  // which has digits only, and a Czech decimal pad offers a comma, not a dot -
+  // so any of . , / - or a space separates the parts, and eight bare digits
+  // work too (18092026). A four-digit first part is read as ISO year first.
+  // Impossible dates are still refused: 31.02. does not roll over into March.
+  _parseDate(str, order) {
+    const s = (str || '').trim();
+    if (!s) return null;
+    const parts = /^\d{8}$/.test(s)
+      ? [s.slice(0, 2), s.slice(2, 4), s.slice(4)]
+      : s.split(/[\s.,\/-]+/).filter(Boolean);
+    if (parts.length !== 3 || !parts.every(p => /^\d+$/.test(p))) return null;
     let d, m, y;
-    if (this.lang === 'cs') {
-      const parts = s.split('.');
-      if (parts.length !== 3) return null;
-      [d, m, y] = parts.map(Number);
-    } else {
-      const parts = s.split('/');
-      if (parts.length !== 3) return null;
-      [m, d, y] = parts.map(Number);
-    }
-    if ([d, m, y].some(v => isNaN(v) || !v)) return null;
+    if (parts[0].length === 4) [y, m, d] = parts.map(Number);
+    else if (order === 'dmy') [d, m, y] = parts.map(Number);
+    else [m, d, y] = parts.map(Number);
     if (m < 1 || m > 12 || d < 1 || d > 31 || y < 1900 || y > 2100) return null;
     const date = new Date(y, m - 1, d);
     if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) return null;
     return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
   },
 
-  // Auto-detect CS (dots) or EN (slashes) format — used when reformatting on lang switch
-  _parseDateAutoFormat(str) {
-    if (!str || !str.trim()) return null;
-    const s = str.trim();
-    let d, m, y;
-    if (s.includes('.')) {
-      const parts = s.split('.');
-      if (parts.length !== 3) return null;
-      [d, m, y] = parts.map(Number);
-    } else if (s.includes('/')) {
-      const parts = s.split('/');
-      if (parts.length !== 3) return null;
-      [m, d, y] = parts.map(Number);
-    } else return null;
-    if ([d, m, y].some(v => isNaN(v) || !v)) return null;
-    if (m < 1 || m > 12 || d < 1 || d > 31 || y < 1900 || y > 2100) return null;
-    const date = new Date(y, m - 1, d);
-    if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) return null;
-    return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+  // Show how a typed date was understood: 18092026 becomes 18.09.2026 when
+  // the field is left. Something unparseable stays as typed, for Save to flag.
+  initDateInputs() {
+    ['weight-date', 'calc-date', 'dog-birth-date'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('blur', () => {
+        const iso = this.parseDateInput(el.value);
+        if (iso) el.value = this.formatDateForInput(iso);
+      });
+    });
   },
 
   // Reformat all date text inputs to the current language after a lang switch

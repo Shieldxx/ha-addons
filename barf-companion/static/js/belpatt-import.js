@@ -38,16 +38,16 @@ const BelpattImport = {
             <textarea id="belpatt-textarea" class="belpatt-textarea"
               placeholder="${App.t('belpatt_import.placeholder')}"></textarea>
             <div class="modal-actions">
-              <button id="belpatt-parse-btn" class="btn btn-primary">${App.t('belpatt_import.parse_btn')}</button>
               <button id="belpatt-cancel-btn" class="btn btn-secondary">${App.t('common.cancel')}</button>
+              <button id="belpatt-parse-btn" class="btn btn-primary">${App.t('belpatt_import.parse_btn')}</button>
             </div>
           </div>
           <div id="belpatt-preview-state" style="display:none">
             <p id="belpatt-summary" class="belpatt-summary"></p>
             <div id="belpatt-preview-list" class="belpatt-preview-list"></div>
             <div class="modal-actions">
-              <button id="belpatt-import-btn" class="btn btn-primary">${App.t('belpatt_import.import_btn')}</button>
               <button id="belpatt-cancel2-btn" class="btn btn-secondary">${App.t('common.cancel')}</button>
+              <button id="belpatt-import-btn" class="btn btn-primary">${App.t('belpatt_import.import_btn')}</button>
             </div>
           </div>
         </div>

@@ -4,11 +4,10 @@ const Settings = {
   init() {
     document.getElementById('btn-save-settings').addEventListener('click', () => this.save());
 
+    // The preset select is the one control that loads a preset. The age group
+    // used to do it too, silently: picking Junior rewrote % of body weight and
+    // all seven ratios (3% -> 5%), and Save then kept the overfeed.
     document.getElementById('dog-preset').addEventListener('change', (e) => {
-      this.applyPreset(e.target.value);
-    });
-
-    document.getElementById('dog-age').addEventListener('change', (e) => {
       this.applyPreset(e.target.value);
     });
 
@@ -75,19 +74,33 @@ const Settings = {
     this.updateRatioSum();
   },
 
-  updateRatioSum() {
+  ratioSum() {
     let sum = 0;
     document.querySelectorAll('.ratio-input').forEach(input => {
       sum += parseFloat(input.value) || 0;
     });
+    return Math.round(sum * 100) / 100;
+  },
+
+  updateRatioSum() {
+    const sum = this.ratioSum();
     const el = document.getElementById('ratio-sum');
     el.textContent = sum + '%';
     el.className = 'ratio-sum mono ' + (sum === 100 ? 'valid' : 'invalid');
   },
 
   async save() {
-    const name = document.getElementById('dog-name').value.trim();
-    if (!name) return;
+    const nameInput = document.getElementById('dog-name');
+    const name = nameInput.value.trim();
+    if (!name) {
+      // This used to return without a word, leaving a Save button that
+      // seemed to do nothing.
+      App.toast(App.t('errors.name_required'));
+      nameInput.classList.add('input-error');
+      nameInput.focus();
+      nameInput.addEventListener('input', () => nameInput.classList.remove('input-error'), { once: true });
+      return;
+    }
 
     const birthDateRaw = document.getElementById('dog-birth-date').value;
     let birthDate = '';
@@ -103,6 +116,16 @@ const Settings = {
     document.querySelectorAll('.ratio-input').forEach(input => {
       ratios[parseInt(input.dataset.cat)] = parseFloat(input.value) || 0;
     });
+
+    // The calculator splits the daily total by ratio / 100, so any other sum
+    // makes the category grams disagree with the total shown above them. The
+    // red readout sits far above Save, scrolled away on a phone - bring it back.
+    const sum = this.ratioSum();
+    if (sum !== 100) {
+      App.toast(App.t('settings.ratio_sum_invalid').replace('{sum}', sum));
+      document.getElementById('ratio-sum').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
 
     const stock = {};
     document.querySelectorAll('.stock-input').forEach(input => {
