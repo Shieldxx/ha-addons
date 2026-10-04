@@ -1,5 +1,5 @@
 name: Beszel Hub
-version: "1.2.1"
+version: "1.2.2"
 slug: beszel_hub
 description: Beszel - lightweight self-hosted server monitoring hub
 url: https://github.com/Shieldxx/ha-addons

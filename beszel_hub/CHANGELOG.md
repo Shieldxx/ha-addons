@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.2 — 2026-10-04
+
+- Fixed: the sidebar showed Beszel's "404" page. Beszel 0.21 writes its base path in a
+  new format that the ingress rewrite did not recognise; both formats are rewritten now.
+- Beszel is pinned to 0.21.0 instead of `latest`, so an install gets the version this
+  add-on was checked with, and a Beszel upgrade is a deliberate add-on release.
+- README: first-run setup and backups go through port 8090, by IP address.
+
 ## 1.2.1 — 2026-10-04
 
 - Moved to [Shieldxx/ha-addons](https://github.com/Shieldxx/ha-addons), the one
