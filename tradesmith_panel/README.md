@@ -15,7 +15,14 @@ the dashboard password, so you are not asked for it.
 The dashboard must support running under a path prefix (it reads the
 `X-Ingress-Path` header), otherwise links inside the panel leave the ingress URL.
 
+## Using it from automations
+
+Home Assistant Core can call the dashboard through the add-on without the password,
+e.g. a `rest` sensor on `http://<repo-hash>-tradesmith-panel:8099/api/summary` or a
+`rest_command` posting to `/killswitch`. The hostname is the add-on slug with `_`
+replaced by `-`, shown on the add-on's Info page.
+
 ## Security
 
-Only Home Assistant's ingress gateway can reach the proxy, so the dashboard is
-protected by your Home Assistant login. The add-on publishes no port.
+Only Home Assistant itself can reach the proxy (the ingress gateway and Core), so the
+dashboard is protected by your Home Assistant login. The add-on publishes no port.

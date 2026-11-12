@@ -10,10 +10,12 @@ http {
     server {
         listen 8099;
 
-        # Only Home Assistant's ingress gateway may connect: this proxy adds the
-        # dashboard credentials, so anyone else reaching the port would get in
-        # without them.
-        allow 172.30.32.2;
+        # This proxy adds the dashboard credentials, so only Home Assistant may
+        # connect: the Supervisor's ingress gateway (the sidebar panel) and Core
+        # (rest sensors and rest_command, so the token lives only in this
+        # add-on's options, not in secrets.yaml). Anyone else is refused.
+        allow 172.30.32.2;   # Supervisor (ingress)
+        allow 172.30.32.1;   # Home Assistant Core
         deny all;
 
         location / {

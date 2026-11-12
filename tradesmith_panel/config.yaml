@@ -1,5 +1,5 @@
 name: Tradesmith
-version: "0.1.0"
+version: "0.1.1"
 slug: tradesmith_panel
 description: Sidebar panel for the Tradesmith dashboard running elsewhere on the LAN
 url: https://github.com/Shieldxx/ha-addons
