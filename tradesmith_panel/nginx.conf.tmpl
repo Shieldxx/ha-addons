@@ -1,0 +1,36 @@
+worker_processes 1;
+error_log /dev/stderr warn;
+pid /run/nginx.pid;
+
+events { worker_connections 256; }
+
+http {
+    access_log off;
+
+    server {
+        listen 8099;
+
+        # Only Home Assistant's ingress gateway may connect: this proxy adds the
+        # dashboard credentials, so anyone else reaching the port would get in
+        # without them.
+        allow 172.30.32.2;
+        deny all;
+
+        location / {
+            proxy_pass @UPSTREAM@;
+            proxy_set_header Host $proxy_host;
+            proxy_set_header Authorization "Basic @AUTH@";
+
+            # The dashboard prefixes its links, forms, API calls and redirects
+            # with this path, so everything stays under the ingress URL.
+            proxy_set_header X-Ingress-Path $http_x_ingress_path;
+
+            # Redirects already carry the ingress prefix; leave them as they are.
+            proxy_redirect off;
+
+            proxy_http_version 1.1;
+            proxy_connect_timeout 5s;
+            proxy_read_timeout 60s;
+        }
+    }
+}

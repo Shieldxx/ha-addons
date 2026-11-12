@@ -6,6 +6,7 @@
 |---|---|---|
 | [BARF Companion](barf-companion) | BARF raw feeding calculator and meal planner for dogs | [PolyForm Noncommercial 1.0.0](barf-companion/LICENSE) |
 | [Beszel Hub](beszel_hub) | Beszel - lightweight self-hosted server monitoring hub | [MIT](beszel_hub/LICENSE) |
+| [Tradesmith](tradesmith_panel) | Sidebar panel for the Tradesmith dashboard running elsewhere on the LAN | [MIT](tradesmith_panel/LICENSE) |
 
 ## Installing
 

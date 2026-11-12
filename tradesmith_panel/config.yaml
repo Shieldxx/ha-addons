@@ -1,0 +1,21 @@
+name: Tradesmith
+version: "0.1.0"
+slug: tradesmith_panel
+description: Sidebar panel for the Tradesmith dashboard running elsewhere on the LAN
+url: https://github.com/Shieldxx/ha-addons
+arch:
+  - amd64
+  - aarch64
+init: false
+startup: application
+boot: auto
+ingress: true
+ingress_port: 8099
+panel_icon: mdi:chart-line
+panel_title: Tradesmith
+options:
+  upstream_url: ""
+  dashboard_password: ""
+schema:
+  upstream_url: url
+  dashboard_password: password
